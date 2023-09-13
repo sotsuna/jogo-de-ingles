@@ -25,7 +25,7 @@ h1 {
 
 button{
     margin: 0px 20px;
-    width: 10em;
+    width: auto;
     height: 3em;
     background-color: var(--color-5);
     color: black;
@@ -37,6 +37,7 @@ button{
     -o-border-radius: 10px;
     font-size: 12pt;
     transition: 0.3s;
+    padding: 0px 20px;
 }
 
 button:hover{
@@ -57,4 +58,10 @@ button:hover{
     vertical-align: middle;
     text-align: center;
     background-color: var(--color-1);
+}
+
+.paragraph{
+    text-align: center;
+    font-weight: 00;
+    color: var(--color-5);
 }
