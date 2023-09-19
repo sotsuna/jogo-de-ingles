@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@100;200;400&display=swap');
+@import url("reset.css");
 
-:root{
+:root {
     --color-1: #344e41;
     --color-2: #3a5a40;
     --color-3: #588157;
@@ -8,22 +9,26 @@
     --color-5: #dad7cd;
 }
 
-html{
+body {
+    margin: 0 0 0 0;
+}
+
+html {
     background-color: var(--color-1);
     margin: 0 auto;
 }
 
-*  {
+* {
     font-family: 'Prompt', sans-serif;
 }
 
-h1 {
-    margin: 20px 10px;
+h1, h2 {
+    all: revert;
     text-align: center;
     color: var(--color-4);
 }
 
-label{
+label {
     margin: 0 0;
 }
 
@@ -36,15 +41,20 @@ h2 {
 form {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
 }
 
 .button-container {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin: 20px;
 }
 
-input{
+input,
+input::placeholder {
+    all: revert;
     padding: 10px;
 }
 
@@ -66,18 +76,29 @@ input{
     margin: 0 10px;
 }
 
-button:hover{
+button:hover {
     background-color: var(--color-4);
 }
 
-.about-form{
+.about-form {
     display: flex;
     flex-direction: column;
     gap: 20px;
     padding: 10px;
 }
 
-.container{
+div {
+    margin: 0 0 0 0;
+}
+
+div input {
+    width: 100%;
+    border-radius: 10px;
+    border: 0px;
+    text-align: center;
+}
+
+.container {
     width: 100%;
     height: 100vh;
     justify-content: center;
@@ -86,7 +107,7 @@ button:hover{
     text-align: center;
 }
 
-.menu-1{
+.menu-1 {
     justify-content: center;
     position: relative;
     height: 50vh;
@@ -97,13 +118,13 @@ button:hover{
     background-color: var(--color-1);
 }
 
-.paragraph{
+.paragraph {
     text-align: center;
     font-weight: 300;
     color: var(--color-5);
 }
 
-.blocktext{
+.blocktext {
     width: 55%;
     margin: 0 auto;
     height: auto;

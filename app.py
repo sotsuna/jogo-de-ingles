@@ -16,8 +16,8 @@ def namePage():
 
 @app.route('/levels/<levelnum>', methods=['GET', 'POST'])
 def level1Page():
-
     return render_template('levels/1.html')
+
 @app.route('/about', methods=['GET', 'POST'])
 def aboutPage():
     return render_template('about.html')
