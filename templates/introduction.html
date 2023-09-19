@@ -1,22 +1,18 @@
 {% extends "base.html" %}
 {% block main %}
     <div class="container">
-        <form action="/about" class="about-form">
+        <form action="/start" class="about-form">
             <div>
                 <label for="name">
                     <h2>Firstly, what's your name?</h2>
                 </label>
-                <br>
             </div>
             <div>
                 <input type="text" id="name" name="name" placeholder="Your name here">
                 <br>
             </div>
-            <div>
                 <div class="button-container">
-                    <button name="nameSend" type="submit">Start</button>
-                    <br>
-                </div>
+                    <button name="nameSend" type="submit">Send</button>
             </div>
         </form>
     </div>
