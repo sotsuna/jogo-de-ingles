@@ -47,6 +47,7 @@ form {
 }
 
 .button-container {
+    gap: 20px;
     display: flex;
     justify-content: center;
     margin: 20px;
