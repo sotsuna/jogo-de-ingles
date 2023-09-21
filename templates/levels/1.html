@@ -1,38 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="../css/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>First Level</title>
-</head>
-
-<body>
-    <main>
-        <div class="container">
-            <div class="menu-1">
-                <h1>Question 1</h1>
-                <p class="paragraph">
-                    What is the correct conjugation of “wish” in the past perfect tense?
-                </p>
-                <br />
-                <br />
-                <button onclick="window.location.href = 'error.html'">
-                    Wished
-                </button>
-                <button onclick="window.location.href = '2.html'">
-                    Wish
-                </button>
-                <button onclick="window.location.href = 'wrong.html'">
-                    Wishing
-                </button>
-                <button onclick="window.location.href = '2.html'">
-                    Had wished
-                </button>
-            </div>
-        </div>
-    </main>
-</body>
-
-</html>
+{% extends "base.html" %}
+{% block script %}
+<script>
+    // Quando o botão é clicado, faz uma solicitação para a próxima rota
+    document.getElementById("nextLevelButton").addEventListener("click", function() {
+        fetch("/start/levels", { method: "GET" })
+            .then(response => {
+                if (response.redirected) {
+                    window.location.href = response.url; // Redireciona para a próxima rota
+                }
+            })
+            .catch(error => {
+                console.error("Erro ao avançar para o próximo nível:", error);
+            });
+    });
+</script>
+{% endblock script %}
+{% block main %}
+    <h1>First Question</h1>
+    <div class="container">
+            <h2>What is the correct conjugation of the verb "wish" in the "past perfect"?</h2>
+            <form action="/start/levels" method="POST">
+                <div class="button-container">
+                <div>
+                <input type="text" name="answer" placeholder="Answer" required>
+                </div>
+                <div>
+                <input type="submit" value="Submit">
+                </div>
+                </div>
+            </form>
+    </div>
+{% endblock main %}

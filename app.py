@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
+app.secret_key = 'segredo'
 
 @app.route('/')
 def index():
@@ -14,9 +15,23 @@ def namePage():
     else:
         return render_template('introduction.html')
 
-@app.route('/levels/<levelnum>', methods=['GET', 'POST'])
-def level1Page():
-    return render_template('levels/1.html')
+def levelPage():
+    # Verifique se 'levelnum' está na sessão, se não, defina-o como 1
+    if 'levelnum' not in session:
+        session['levelnum'] = 1
+    else:
+        # Incrementa o número do nível a cada acesso
+        session['levelnum'] += 1
+
+    # Obtém o número do nível atual
+    levelnum = session['levelnum']
+
+    # Redireciona para a rota com o novo número do nível
+    return redirect(url_for('render_level', levelnum=levelnum))
+
+@app.route('/start/levels/<int:levelnum>', methods=['GET', 'POST'])
+def render_level(levelnum):
+    return render_template(f'levels/{levelnum}.html')
 
 @app.route('/about', methods=['GET', 'POST'])
 def aboutPage():

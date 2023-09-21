@@ -49,13 +49,16 @@ form {
 .button-container {
     display: flex;
     justify-content: center;
-    margin: 20px;
+}
+
+input:focus{
+    outline: none;
 }
 
 input,
 input::placeholder {
-    all: revert;
     padding: 10px;
+    all: revert;
 }
 
 .button-container button {
@@ -87,11 +90,8 @@ button:hover {
     padding: 10px;
 }
 
-div {
-    margin: 0 0 0 0;
-}
-
 div input {
+    padding: 5px;
     width: 100%;
     border-radius: 10px;
     border: 0px;

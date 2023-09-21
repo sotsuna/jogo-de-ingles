@@ -4,12 +4,12 @@
     {% block forms %}
         <div class="container">
             <h1>Millionaire Show</h1>
+            <div class="button-container">
+            <form action="/introduction">
+                <button name="aboutButton" type="submit">Start</button>
+            </form>
             <form action="/about">
-                <div class="button-container">
                     <button name="aboutButton" type="submit">About</button>
-                </form>
-                <form action="/introduction">
-                    <button name="aboutButton" type="submit">Start</button>
                 </form>
             </div>
         </div>
