@@ -1,33 +1,19 @@
-{% extends "base.html" %}
-{% block script %}
-<script>
-    // Quando o botão é clicado, faz uma solicitação para a próxima rota
-    document.getElementById("nextLevelButton").addEventListener("click", function() {
-        fetch("/start/levels", { method: "GET" })
-            .then(response => {
-                if (response.redirected) {
-                    window.location.href = response.url; // Redireciona para a próxima rota
-                }
-            })
-            .catch(error => {
-                console.error("Erro ao avançar para o próximo nível:", error);
-            });
-    });
-</script>
-{% endblock script %}
-{% block main %}
-    <h1>First Question</h1>
-    <div class="container">
-            <h2>What is the correct conjugation of the verb "wish" in the "past perfect"?</h2>
-            <form action="/start/levels" method="POST">
-                <div class="button-container">
-                <div>
-                <input type="text" name="answer" placeholder="Answer" required>
-                </div>
-                <div>
-                <input type="submit" value="Submit">
-                </div>
-                </div>
-            </form>
+{% extends "base.html" %} {% block main %}
+<div class="container">
+  <h1>First Question</h1>
+  <p class="paragraph">
+    What is the correct conjugation of the verb "wish" in the "past perfect"?
+  </p>
+  <br />
+  <form action="/level" method="POST">
+    <div class="button-container">
+      <div>
+        <input type="text" name="resposta" placeholder="Answer" required />
+      </div>
+      <div>
+        <input type="submit" value="Submit" />
+      </div>
     </div>
+  </form>
+</div>
 {% endblock main %}

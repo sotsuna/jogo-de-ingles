@@ -1,38 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="../css/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>First Level</title>
-</head>
-
-<body>
-    <main>
-        <div class="container">
-            <div class="menu-1">
-                <h1>Question 2</h1>
-                <p class="paragraph">
-                    Complete the sentence: “I _____ you had told me about the party.”
-                </p>
-                <br />
-                <br />
-                <button onclick="window.location.href = '3.html'">
-                    Wish
-                </button>
-                <button onclick="window.location.href = 'wrong.html'">
-                    Wishing
-                </button>
-                <button onclick="window.location.href = 'wrong.html'">
-                    Wished
-                </button>
-                <button onclick="window.location.href = 'wrong.html'">
-                    Had wished
-                </button>
-            </div>
-        </div>
-    </main>
-</body>
-
-</html>
+{% extends 'base.html' %} {% block main %}
+<div class="container">
+  <h2>You got it right!</h2>
+  <br />
+  <div>
+    <p class="paragraph">Let's see if you are that good as they told me.</p>
+  </div>
+  <br />
+  <form action="/levels" method="get">
+    <div class="button-container">
+      <div>
+        <button name="nextButton" type="submit">Next Level</button>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock main %}
