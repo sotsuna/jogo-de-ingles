@@ -1,15 +1,17 @@
-{% extends 'base.html' %} {% block main %}
+{% extends "base.html" %} {% block main %}
 <div class="container">
-  <h2>You got it right!</h2>
+  <h1>First Question</h1>
+  <p class="paragraph">
+    Complete the sentence: “I _____ that you had told me about the party.”
+  </p>
   <br />
-  <div>
-    <p class="paragraph">Let's see if you are that good as they told me.</p>
-  </div>
-  <br />
-  <form action="/levels" method="get">
+  <form action="/level" method="POST">
     <div class="button-container">
       <div>
-        <button name="nextButton" type="submit">Next Level</button>
+        <input type="text" name="resposta" placeholder="Answer" required />
+      </div>
+      <div>
+        <input type="submit" value="Submit" />
       </div>
     </div>
   </form>

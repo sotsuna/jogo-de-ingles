@@ -1,17 +1,58 @@
 from flask import Flask, render_template, request, redirect, url_for, session
+import random
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 app.secret_key = 'segredo'
 
 respostas_corretas = {
-    1: 'Had wished',
-    2: 'Wish',
-    3: 'Had arrived',
-    4: 'Wished',
-    5: 'Had left',
-    6: 'Had wished',
-    7: 'Had called',
-    8: 'Wished'
+    1: [
+        {'opcao': 'had wished', 'correta': True},
+        {'opcao': 'wishing', 'correta': False},
+        {'opcao': 'wish', 'correta': False},
+        {'opcao': 'wished', 'correta': False},
+    ],
+    2: [
+        {'opcao': 'wished', 'correta': True},
+        {'opcao': 'wish', 'correta': False},
+        {'opcao': 'wishing', 'correta': False},
+        {'opcao': 'had wished', 'correta': False},
+    ],
+    3: [
+        {'opcao': 'had arrived', 'correta': True},
+        {'opcao': 'arrives', 'correta': False},
+        {'opcao': 'arrived', 'correta': False},
+        {'opcao': 'arrive', 'correta': False},
+    ],
+    4: [
+        {'opcao': 'wished', 'correta': True},
+        {'opcao': 'had wish', 'correta': False},
+        {'opcao': 'wish', 'correta': False},
+        {'opcao': 'had wished', 'correta': False},
+    ],
+    5: [
+        {'opcao': 'had arrived', 'correta': True},
+        {'opcao': 'arrives', 'correta': False},
+        {'opcao': 'arrived', 'correta': False},
+        {'opcao': 'arrive', 'correta': False},
+    ],
+    6: [
+        {'opcao': 'had arrived', 'correta': True},
+        {'opcao': 'arrives', 'correta': False},
+        {'opcao': 'arrived', 'correta': False},
+        {'opcao': 'arrive', 'correta': False},
+    ],
+    7: [
+        {'opcao': 'had arrived', 'correta': True},
+        {'opcao': 'arrives', 'correta': False},
+        {'opcao': 'arrived', 'correta': False},
+        {'opcao': 'arrive', 'correta': False},
+    ],
+    8: [
+        {'opcao': 'had arrived', 'correta': True},
+        {'opcao': 'arrives', 'correta': False},
+        {'opcao': 'arrived', 'correta': False},
+        {'opcao': 'arrive', 'correta': False},
+    ],
 }
 
 
@@ -20,7 +61,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/newroom', methods=['GET', 'POST'])
+@app.route('/introduction', methods=['GET', 'POST'])
 def namePage():
     if request.method == 'POST':
         name = request.form['name']
@@ -44,7 +85,7 @@ def levelPage():
         resposta_usuario = request.form.get('resposta')
         resposta_correta = respostas_corretas.get(levelnum)
 
-        if resposta_usuario == resposta_correta:
+        if resposta_usuario.lower() == resposta_correta.lower():
             # A resposta está correta, então vá para o próximo nível
             session['levelnum'] += 1
             levelnum = session['levelnum']
@@ -52,8 +93,11 @@ def levelPage():
             # A resposta está incorreta, defina a mensagem de erro
             mensagem_erro = "Resposta incorreta. Tente novamente."
 
-    # Renderize o template HTML e passe a mensagem de erro
-    return render_template('levels/{}.html'.format(levelnum), mensagem_erro=mensagem_erro)
+    # Embaralhe aleatoriamente as opções de resposta para o nível atual
+    opcoes_resposta = random.sample(list(respostas_corretas.values()), 4)
+
+    # Renderize o template HTML e passe as opções de resposta e a mensagem de erro
+    return render_template('levels/{}.html'.format(levelnum), opcoes_resposta=opcoes_resposta, mensagem_erro=mensagem_erro)
 
 
 @app.route('/start/levels/<int:levelnum>', methods=['GET', 'POST'])
@@ -66,4 +110,5 @@ def aboutPage():
     return render_template('about.html')
 
 
-app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
