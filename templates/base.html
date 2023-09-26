@@ -1,17 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt_BR">
-    <head>
-        <link href="{{ url_for('static', filename='assets/css/style.css') }}"
-              rel="stylesheet">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>English Game</title>
-    </head>
-    <body>
-        <main>
-            {% block script %}{% endblock script %}
-            {% block main %}{% endblock main %}
-            {% block forms %}{% endblock forms %}
+  <head>
+    <link
+      href="{{ url_for('static', filename='assets/css/style.css') }}"
+      rel="stylesheet"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>English Game</title>
+    <script>
+      // Obtém todos os botões de resposta
+      const botoesResposta = document.querySelectorAll(".resposta-btn");
+
+      // Adiciona um evento de clique a cada botão
+      botoesResposta.forEach((botao) => {
+        botao.addEventListener("click", () => {
+          // Verifique se a resposta do usuário está correta
+          const respostaUsuario = botao.value;
+          const respostaCorreta = "{{ resposta_correta }}"; // Use a resposta correta atual do servidor
+
+          if (respostaUsuario.toLowerCase() !== respostaCorreta.toLowerCase()) {
+            // Se a resposta estiver errada, oculte o botão clicado incorretamente
+            botao.style.display = "none";
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <main>
+      {% block main %}{% endblock main %} {% block forms %}{% endblock forms %}
+      {% block mensagem_de_erro %}{% endblock mensagem_de_erro %}
     </main>
-</body>
+  </body>
 </html>

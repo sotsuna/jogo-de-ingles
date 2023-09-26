@@ -7,6 +7,7 @@
     --color-3: #588157;
     --color-4: #a3b18a;
     --color-5: #dad7cd;
+    --error-message: #ff0000;
 }
 
 body {
@@ -132,4 +133,10 @@ div input {
     width: 55%;
     margin: 0 auto;
     height: auto;
+}
+
+.error-message {
+    color: var(--error-message);
+    font-size: 10pt;
+    text-align: center;
 }
