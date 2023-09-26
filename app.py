@@ -94,19 +94,25 @@ def levelPage():
         # Verifique se a resposta do usuário está entre as opções corretas
         resposta_correta = any(opcao['opcao'].lower() == resposta_usuario.lower() and opcao['correta'] for opcao in respostas_nivel_atual)
 
+        if not resposta_correta:
+            # Se a resposta estiver incorreta, marque o botão clicado como oculto
+            botao_errado = request.form.get('resposta')
+            mensagem_erro = "Wrong answer! I removed the wrong option for you."
+            for opcao in respostas_nivel_atual:
+                if opcao['opcao'] == botao_errado:
+                    opcao['oculto'] = True
+
+        # Se a resposta estiver correta, vá para o próximo nível
         if resposta_correta:
-            # A resposta está correta, então vá para o próximo nível
             session['levelnum'] += 1
             levelnum = session['levelnum']
-        else:
-            # A resposta está incorreta, defina a mensagem de erro
-            mensagem_erro = "Resposta incorreta. Tente novamente."
 
-    # Embaralhe aleatoriamente as opções de resposta para o nível atual
-    opcoes_resposta = random.sample(respostas_corretas[levelnum], 4)
+    # Obtenha as opções de resposta para o nível atual
+    opcoes_resposta = respostas_corretas[levelnum]
 
     # Renderize o template HTML e passe as opções de resposta e a mensagem de erro
     return render_template('levels/{}.html'.format(levelnum), opcoes_resposta=opcoes_resposta, mensagem_erro=mensagem_erro)
+
 
 
 @app.route('/about', methods=['GET', 'POST'])
