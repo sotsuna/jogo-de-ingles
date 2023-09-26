@@ -1,9 +1,14 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import random
 
+# cria o app do Flask
 app = Flask(__name__, static_folder='static', template_folder='templates')
+
+# chave genérica só pra fazer o app funcionar
 app.secret_key = 'segredo'
 
+
+# array com as respostas corretas
 respostas_corretas = {
     1: [
         {'opcao': 'had wished', 'correta': True},
@@ -56,11 +61,12 @@ respostas_corretas = {
 }
 
 
+# route para puxar a index
 @app.route('/')
 def index():
     return render_template('index.html')
 
-
+# route para puxar a tela de introdução do jogo
 @app.route('/introduction', methods=['GET', 'POST'])
 def namePage():
     if request.method == 'POST':
@@ -69,7 +75,7 @@ def namePage():
     else:
         return render_template('introduction.html')
 
-
+# route para puxar o sistema de níveis e testar se a resposta concedida foi a correta
 @app.route('/level', methods=['GET', 'POST'])
 def levelPage():
     # Verifique se 'levelnum' está na sessão, se não, defina-o como 1
@@ -98,12 +104,6 @@ def levelPage():
 
     # Renderize o template HTML e passe as opções de resposta e a mensagem de erro
     return render_template('levels/{}.html'.format(levelnum), opcoes_resposta=opcoes_resposta, mensagem_erro=mensagem_erro)
-
-
-@app.route('/start/levels/<int:levelnum>', methods=['GET', 'POST'])
-def render_level(levelnum):
-    return render_template(f'levels/{levelnum}.html')
-
 
 @app.route('/about', methods=['GET', 'POST'])
 def aboutPage():
