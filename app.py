@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, session
 import random
 
 # cria o app do Flask
@@ -89,9 +89,12 @@ def levelPage():
 
     if request.method == 'POST':
         resposta_usuario = request.form.get('resposta')
-        resposta_correta = respostas_corretas.get(levelnum)
+        respostas_nivel_atual = respostas_corretas.get(levelnum)
 
-        if resposta_usuario.lower() == resposta_correta.lower():
+        # Verifique se a resposta do usuário está entre as opções corretas
+        resposta_correta = any(opcao['opcao'].lower() == resposta_usuario.lower() and opcao['correta'] for opcao in respostas_nivel_atual)
+
+        if resposta_correta:
             # A resposta está correta, então vá para o próximo nível
             session['levelnum'] += 1
             levelnum = session['levelnum']
@@ -100,10 +103,11 @@ def levelPage():
             mensagem_erro = "Resposta incorreta. Tente novamente."
 
     # Embaralhe aleatoriamente as opções de resposta para o nível atual
-    opcoes_resposta = random.sample(list(respostas_corretas.values()), 4)
+    opcoes_resposta = random.sample(respostas_corretas[levelnum], 4)
 
     # Renderize o template HTML e passe as opções de resposta e a mensagem de erro
     return render_template('levels/{}.html'.format(levelnum), opcoes_resposta=opcoes_resposta, mensagem_erro=mensagem_erro)
+
 
 @app.route('/about', methods=['GET', 'POST'])
 def aboutPage():
