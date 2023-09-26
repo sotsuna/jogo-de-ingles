@@ -12,8 +12,8 @@ respostas_corretas = {
         {'opcao': 'wished', 'correta': False},
     ],
     2: [
-        {'opcao': 'wished', 'correta': True},
-        {'opcao': 'wish', 'correta': False},
+        {'opcao': 'wish', 'correta': True},
+        {'opcao': 'wished', 'correta': False},
         {'opcao': 'wishing', 'correta': False},
         {'opcao': 'had wished', 'correta': False},
     ],
@@ -30,10 +30,10 @@ respostas_corretas = {
         {'opcao': 'had wished', 'correta': False},
     ],
     5: [
-        {'opcao': 'had arrived', 'correta': True},
-        {'opcao': 'arrives', 'correta': False},
-        {'opcao': 'arrived', 'correta': False},
-        {'opcao': 'arrive', 'correta': False},
+        {'opcao': 'had left', 'correta': True},
+        {'opcao': 'leaves', 'correta': False},
+        {'opcao': 'left', 'correta': False},
+        {'opcao': 'leave', 'correta': False},
     ],
     6: [
         {'opcao': 'had arrived', 'correta': True},
