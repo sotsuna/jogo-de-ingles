@@ -1,23 +1,10 @@
 {% extends "base.html" %}
 {% block main %}
-<div class="container">
-  <h1>First Question</h1>
-  <p class="paragraph">
-    What is the correct conjugation of the verb "wish" in the "past perfect"?
-  </p>
-  <br />
-  <form method="post">
-    <div class="button-container">
-      {% for opcao in opcoes_resposta %} 
-      {% if not opcao.get('oculto') %}
-      <button type="submit" name="resposta" value="{{ opcao['opcao'] }}">{{ opcao['opcao'] }}</button>
-      {% endif %} 
-      {% endfor %}
-    </div>
-  </form>
-
-  {% if mensagem_erro %}
-  <p>{{ mensagem_erro }}</p>
-  {% endif %}
-</div>
+  <div class="container">
+    <h1>First Question</h1>
+    {% include "schemes/name.html" %}
+    <p class="paragraph">What is the correct conjugation of the verb "wish" in the "past perfect"?</p>
+    <br />
+    {% include "schemes/level_scheme.html" %}
+  </div>
 {% endblock main %}
