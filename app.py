@@ -13,10 +13,10 @@ respostas_corretas = {
     1: [
         {'question_level': 'First Question'},
         {'questao': 'What is the correct conjugation of the verb "wish" in the "past perfect"?'},
-        {'opcao': 'had wished', 'correta': True},
-        {'opcao': 'wishing', 'correta': False},
-        {'opcao': 'wish', 'correta': False},
-        {'opcao': 'wished', 'correta': False},
+        {'id': 1, 'opcao': 'had wished', 'correta': True},
+        {'id': 2,'opcao': 'wishing', 'correta': False},
+        {'id': 3, 'opcao': 'wish', 'correta': False},
+        {'id': 4,'opcao': 'wished', 'correta': False},
     ],
     2: [
         {'question_level': 'Second Question'},
@@ -113,12 +113,17 @@ def levelPage():
     if request.method == 'POST':
         resposta_usuario = request.form.get('resposta')
 
+        print(resposta_usuario)
+
         # Verifica se a resposta do usuário está entre as opções corretas
-        resposta_correta = any(opcao.get('correta', False) and opcao.get('opcao', '').lower() == resposta_usuario.lower() for opcao in respostas_nivel_atual)
+        # Obtém o ID da resposta certa
+        id_resposta_correta = next((opcao.get('id') for opcao in respostas_nivel_atual if opcao.get('correta')), None)
+
+        # Verifica se o ID da resposta selecionada pelo usuário corresponde ao ID da resposta certa
+        resposta_correta = id_resposta_correta is not None and id_resposta_correta == resposta_usuario
 
         if not resposta_correta:
             # Se a resposta estiver incorreta, marque o botão clicado como oculto
-            botao_errado = request.form.get('resposta')
             mensagem_erro = "Resposta incorreta. Tente novamente."
             for opcao in respostas_nivel_atual:
                 if opcao.get('opcao', '').lower() == resposta_usuario.lower():
@@ -132,7 +137,7 @@ def levelPage():
     opcoes_resposta_visiveis = [opcao for opcao in respostas_nivel_atual if not opcao.get('oculto')]
 
     # Renderize o template HTML e passe as opções de resposta, a mensagem de erro e a probabilidade de acerto
-    return render_template('levels/{}.html'.format(levelnum), opcoes_resposta=opcoes_resposta_visiveis, mensagem_erro=mensagem_erro, probabilidade_acerto=probabilidade_acerto, name=name)
+    return render_template('levels/{}.html'.format(levelnum), opcoes_resposta=opcoes_resposta_visiveis, mensagem_erro=mensagem_erro, probabilidade_acerto=probabilidade_acerto)
 
 
 @app.route('/about', methods=['GET', 'POST'])
