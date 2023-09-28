@@ -1,19 +1,4 @@
-{% extends "base.html" %} {% block main %}
-<div class="container">
-  <h1>Third Question</h1>
-  <p class="paragraph">
-    Complete the sentence: “She _____ earlier.”
-  </p>
-  <br />
-  <form action="/level" method="POST">
-    <div class="button-container">
-      <div>
-        <input type="text" name="resposta" placeholder="Answer" required />
-      </div>
-      <div>
-        <input type="submit" value="Submit" />
-      </div>
-    </div>
-  </form>
-</div>
+{% extends "base.html" %}
+{% block main %}
+  {% include "schemes/level_scheme.html" %}
 {% endblock main %}

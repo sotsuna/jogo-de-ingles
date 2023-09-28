@@ -1,15 +1,18 @@
-<form method="post">
-  <div class="button-container">
-    {% for opcao in opcoes_resposta if 'correta' in opcao %}
-    {% if not opcao.get('oculto') %}
-    <button type="submit" name="resposta" value="{{ opcao['correta'] }}">{{ opcao['opcao'] }}</button>
-    {% endif %}
-    {% endfor %}
+<div class="container">
+  <h1>{{ opcoes_resposta[0]['question_level'] }}</h1>
+  <p class="paragraph">{{ opcoes_resposta[1]['questao'] }}</p>
+  <br />
+  <form method="post">
+    <div class="button-container">
+      {% for opcao in opcoes_resposta %}
+        {% if 'correta' in opcao and not opcao.get('oculto') %}
+          <button type="submit" name="resposta" value="{{ opcao['opcao'] }}">{{ opcao['opcao'] }}</button>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </form>
+  <br>
+  <div class="error-message">
+    {% if mensagem_erro %}<p>{{ mensagem_erro }}</p>{% endif %}
   </div>
-</form>
-<br>
-<div class="error-message">
-  {% if mensagem_erro %}
-  <p>{{ mensagem_erro }}</p>
-  {% endif %}
 </div>

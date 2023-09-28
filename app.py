@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, redirect, url_for
 import random
 
 # cria o app do Flask
@@ -76,6 +76,9 @@ respostas_corretas = {
     ],
 }
 
+def embaralhar_opcoes(opcoes):
+    random.shuffle(opcoes)
+
 # route para puxar a index
 @app.route('/')
 def index():
@@ -87,7 +90,7 @@ def namePage():
     name = None  # Inicialize a variável name como None
     if request.method == 'POST':
         name = request.form['name']
-    return render_template('introduction.html', name=name)
+    return render_template('introduction.html')
 
 # Route para puxar o sistema de níveis e testar se a resposta concedida foi a correta
 @app.route('/level', methods=['GET', 'POST'])
@@ -128,16 +131,22 @@ def levelPage():
         if resposta_correta:
             session['levelnum'] += 1
 
-    # Filtra as opções de resposta visíveis (não ocultas)
-    opcoes_resposta_visiveis = [opcao for opcao in respostas_nivel_atual if not opcao.get('oculto')]
-
-    # Renderize o template HTML e passe as opções de resposta, a mensagem de erro e a probabilidade de acerto
-    return render_template('levels/{}.html'.format(levelnum), opcoes_resposta=opcoes_resposta_visiveis, mensagem_erro=mensagem_erro, probabilidade_acerto=probabilidade_acerto, name=name)
-
+        opcoes_resposta_visiveis = [opcao for opcao in respostas_nivel_atual if not opcao.get('oculto')]
+        def compara():
+            if levelnum > 8:
+                return redirect(url_for('endGame'))
+            else:
+                return render_template('levels/{}.html'.format(levelnum), opcoes_resposta=opcoes_resposta_visiveis, mensagem_erro=mensagem_erro, probabilidade_acerto=probabilidade_acerto)
+    return compara()
 
 @app.route('/about', methods=['GET', 'POST'])
 def aboutPage():
     return render_template('about.html')
+
+@app.route('/end', methods=['GET', 'POST'])
+def endGame():
+    return render_template('end_page.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
